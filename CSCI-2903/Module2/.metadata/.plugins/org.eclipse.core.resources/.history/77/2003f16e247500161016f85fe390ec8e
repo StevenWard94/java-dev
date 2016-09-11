@@ -1,0 +1,41 @@
+/**
+ *  Steven Ward
+ *  WardDialogBox.java | Dialog Box Project
+ *  
+ *  A program to read a sentence using a dialog box, and then, depending on the
+ *  punctuation of that sentence, return a categorization of that sentence.
+ *  
+ *  Due Date:  September 11, 2016
+ */
+
+import javax.swing.JOptionPane;
+
+public class WardDialogBox {
+  
+  public static void main(String[] args) {
+    
+    String sentence = JOptionPane.showInputDialog("Enter a sentence (including punctuation):");
+    
+    if (sentence == null) {
+      sentence = "no sentence entered";
+    }
+    
+    switch (sentence.charAt( sentence.length() - 1 )) {
+      
+      case '.':
+        JOptionPane.showMessageDialog(null, "Your sentence was 'declarative'!");
+        break;
+        
+      case '?':
+        JOptionPane.showMessageDialog(null, "Your sentence was 'interrogative'!");
+        break;
+        
+      case '!':
+        JOptionPane.showMessageDialog(null, "Your sentence was 'exclamatory'!");
+        break;
+        
+      default:
+        JOptionPane.showMessageDialog(null, "Your sentence was 'other'!");
+    }
+  }
+}
