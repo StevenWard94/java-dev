@@ -67,12 +67,14 @@ public class WardDomainName {
 
   public static void main(String[] args) {
 
-    String domainIn = JOptionPane.showInputDialog(frame, "A domain name is the \"core\" address of a website.\n"
+    // Prompt the user to enter a domain name of his/her choosing.
+    String domainIn = JOptionPane.showInputDialog(null, "A domain name is the \"core\" address of a website.\n"
         + "Here is an example:  'www.facebook.com'\n"
         + "Please enter a domain name of your choice, with or without the leading 'www.':");
 
+    // Using the 'isValidDomain' function, loop until the program recieves a "valid" domain name.
     while (!isValidDomain(domainIn)) {
-      JOptionPane.showMessageDialog(frame,
+      JOptionPane.showMessageDialog(null,
           "A valid domain name must contain:\n"
           + " 1. An optional \"www.\" at the start of the domain name\n"
           + " 2. A sequence of characters containing ONLY letters, digits and underscores ('_')\n"
@@ -80,13 +82,17 @@ public class WardDomainName {
           + " 4. No \"whitespace\" characters (space, tab, <Enter>, etc.)", "Invalid Domain Name",
           JOptionPane.WARNING_MESSAGE);
 
-      domainIn = JOptionPane.showInputDialog(frame, "Please enter a valid domain name:");
+      domainIn = JOptionPane.showInputDialog(null, "Please enter a valid domain name:");
     }
 
-    //! TODO:
-    //!     - initialize an instance of 'DomainName' class
-    //!     - output values returned from 'hasPrefix', 'extension' and 'name' methods
-    //!     - end program execution
-    //!     - DOCUMENTATION
+    // Instantiate a 'DomainName' object and initialize it with the 'DomainName(String )' constructor.
+    DomainName userDomain = new DomainName(domainIn);
+
+    // Demonstrate proper function of 'hasPrefix()', 'extension()' and 'name()' members.
+    JOptionPane.showMessageDialog(null, "Your Domain: " + userDomain.getDomain() + "\n"
+        + "Prefix: " + (userDomain.hasPrefix() ? "contains \"www.\"\n" : "does not contain \"www.\"\n")
+        + "Extension: " + userDomain.extension() + "\n"
+        + "Name: " + userDomain.name() );
   }
+  // Terminate program execution.
 }
