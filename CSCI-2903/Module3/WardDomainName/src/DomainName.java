@@ -100,12 +100,31 @@ public class DomainName {
    * @return A String equivalent to the domain's "name", contained between the two "dots".
    */
   public String name() {
-    String[] chunks = this.domain.split(".");
-    if (chunks.length < 3) {
-      return "unknown";
+    /**
+     * Uses a regular expression so '.' must be '\.' but '\' must also be escaped giving "\\."
+     * @see java.lang.String#split
+     */
+    String[] chunks = this.domain.split("\\.");
+    if (chunks.length == 3) {  // Evaluates to 'true' if the domain name contained exactly 2 "dots".
+      return chunks[1];        // Returns the substring between the 2 "dots", which split the domain.
     }
-    else {
-      return chunks[1];
-    }
+    else if (chunks.length == 2) {  // Evaluates to 'true' if the domain name contained only one "dot".
+      /**
+       * Since the calling instance has a domain with only one "dot", it cannot have both a "www."
+       * prefix and an extension. So, if 'this.hasPrefix()' returns 'true' then there must be no
+       * extension and the function returns "unknown". NOTE: because of the validity testing for
+       * user input in 'WardDomainName' this should never cause an "unknown" to be output; it is
+       * included as a redundancy in case some implementation (like another program) did not
+       * validate the domain name given by the user, to prevent unexpected results.
+       * If 'this.hasPrefix()' evaluates to 'false', the substring of the domain name up to (but not
+       * including) the single "dot".
+       *
+       * @see #hasPrefix
+       * @see WardDomainName#main
+       * @see WardDomainName#isValidDomain
+       */
+      return this.hasPrefix() ? "unknown" : chunks[0];
+    }  // else
+    return "unknown";  // default return if neither of the above conditions were satisfied.
   }
 }
