@@ -48,6 +48,25 @@ public class WardDuplicate {
     else {
       String title = "Element " + (index + 1) + " of " + userArray.length;
       String message = "Please enter a number between 1 and " + userArray.length;
+      String elementStr = JOptionPane.showInputDialog(null, message, title, JOptionPane.QUESTION_MESSAGE);
+
+      while (!tryParseInt(elementStr) || Integer.parseInt(elementStr) < 1 || Integer.parseInt(elementStr) > userArray.length) {
+        String errTitle = "Invalid Element!";
+        elementStr = JOptionPane.showInputDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
+      }
+      userArray[index] = Integer.parseInt(elementStr);
+      return getElements(userArray, ++index);
     }
   }
+
+
+  private static String toString(int[] array) {
+    String arrayStr = "[ ";
+    for (int element : array) {
+      arrayStr += Integer.toString(element) + " ";
+    }
+    return arrayStr + " ]";
+  }
+
+
 }
