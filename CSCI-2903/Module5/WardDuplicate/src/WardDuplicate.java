@@ -23,5 +23,31 @@
  *       Add any additional tags as needed
  */
 
+import javax.swing.JOptionPane;
+
 public class WardDuplicate {
+
+  private static boolean tryParseInt(String value) {
+    try {
+      Integer.parseInt(value);
+      // If 'value' did not represent a valid 'int', then the above threw an exception and the
+      // following line is not executed.
+      return true;
+    }
+    catch (NumberFormatException nfe) {  // If 'Integer.parseInt' throws, execution jumps here.
+      return false;
+    }
+  }
+
+
+  private static int[] getElements(int[] userArray, int index) {
+
+    if (index >= userArray.length) {
+      return userArray;
+    }
+    else {
+      String title = "Element " + (index + 1) + " of " + userArray.length;
+      String message = "Please enter a number between 1 and " + userArray.length;
+    }
+  }
 }
