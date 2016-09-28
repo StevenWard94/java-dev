@@ -23,6 +23,8 @@
  *       Add any additional tags as needed
  */
 
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
 public class WardDuplicate {
@@ -66,6 +68,22 @@ public class WardDuplicate {
       arrayStr += Integer.toString(element) + " ";
     }
     return arrayStr + " ]";
+  }
+
+
+  private static int[] selectionSort(int[] array) {
+
+    for (int i = 0; i < array.length - 1; i++) {
+      int lowest = i;
+
+      for (int j = i + 1; j < array.length; j++) {
+        lowest = array[j] < array[lowest] ? j : lowest;
+      }
+      int selection = array[lowest];
+      array[lowest] = array[i];
+      array[i] = selection;
+    }
+    return array;
   }
 
 
