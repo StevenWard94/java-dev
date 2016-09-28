@@ -87,4 +87,44 @@ public class WardDuplicate {
   }
 
 
+  private static ArrayList<int[]> getDuplicateData(int[] array) {
+
+    ArrayList<int[]> duplicateData = new ArrayList<int[]>();
+
+    int i = 0;
+    while (i < array.length) {
+      final int value = array[i];
+      int[] dataCol = { value, 1 };
+
+      boolean isDuplicate;
+      do {
+        i++;
+        isDuplicate = false;
+        if (array[i] == dataCol[0]) {
+          isDuplicate = true;
+          dataCol[1] += 1;
+        }
+        // else { isDuplicate still false, no change to duplicate count in dataCol[1] }
+      } while (isDuplicate);
+
+      if (dataCol[1] > 1) {
+        duplicateData.add(dataCol);
+      }
+      // no 'i++' here b/c the current 'array[i]' is the next 'dataCol[0]'
+    }
+    return duplicateData;
+  }
+
+
+  private static String duplicateDataToString(ArrayList<int[]> dataList) {
+    String dataStr = "";
+    if (dataList.isEmpty()) {
+      dataStr = "  No Duplicates"
+    }
+    else {
+
+    }
+  }
+
+
 }
