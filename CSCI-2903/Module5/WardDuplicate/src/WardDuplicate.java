@@ -24,7 +24,6 @@
  */
 
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
 
 public class WardDuplicate {
@@ -116,15 +115,45 @@ public class WardDuplicate {
   }
 
 
-  private static String duplicateDataToString(ArrayList<int[]> dataList) {
-    String dataStr = "";
-    if (dataList.isEmpty()) {
-      dataStr = "  No Duplicates"
+  public static void main(String[] args) {
+    String inputBuffer;
+
+    inputBuffer = JOptionPane.showInputDialog(null, "We are going to make a 'Number List'!\n"
+        + "How many numbers would you like to put in your list? (please make it at least 15)"
+        , "Pick a Size for Your 'Number List'", JOptionPane.QUESTION_MESSAGE);
+
+    while (!tryParseInt(inputBuffer) || Integer.parseInt(inputBuffer) < 15) {
+      inputBuffer = JOptionPane.showInputDialog(null, "Whoops! That just won't do...\n"
+          + "Please enter a size of at least 15 for the list!", "Invalid List Size!"
+          , JOptionPane.ERROR_MESSAGE);
+    }
+    final int size = Integer.parseInt(inputBuffer);
+    int[] emptyArray = new int[size];
+
+    JOptionPane.showMessageDialog(null, "Now you will choose the " + size
+        + " numbers for your list!\n" + "All numbers must be between 1 and "
+        + size + " but you CAN REPEAT!\n" + "Click 'OK' when you are ready to proceed"
+        , "Picking Numbers for Your List", JOptionPane.INFORMATION_MESSAGE);
+
+    int[] userArray = getElements(emptyArray, 0);
+    ArrayList<int[]> duplicateData = getDuplicateData(selectionSort(userArray));
+
+    int nDuplicated = duplicateData.size();
+    String arrayStr = toString(userArray);
+    String messageTitle = "Here is Your 'Number List'!";
+    String dataMessage = "Duplicates:\n";
+
+    if (nDuplicated > 0) {
+      for (int[] col : duplicateData) {
+        String line = "  " + col[0] + "    appears " + col[1] + " times\n";
+        dataMessage += line;
+      }
     }
     else {
-
+      dataMessage += "  You didn't duplicate a single element!\n";
     }
+    JOptionPane.showMessageDialog(null, "Here is the completed list!\n" + arrayStr + "\n"
+        + dataMessage, messageTitle, JOptionPane.INFORMATION_MESSAGE);
   }
-
 
 }
