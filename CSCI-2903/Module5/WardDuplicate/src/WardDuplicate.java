@@ -99,7 +99,7 @@ public class WardDuplicate {
       do {
         i++;
         isDuplicate = false;
-        if (array[i] == dataCol[0]) {
+        if (i < array.length && array[i] == dataCol[0]) {
           isDuplicate = true;
           dataCol[1] += 1;
         }
@@ -138,13 +138,13 @@ public class WardDuplicate {
     int[] userArray = getElements(emptyArray, 0);
     ArrayList<int[]> duplicateData = getDuplicateData(selectionSort(userArray));
 
-    int nDuplicated = duplicateData.size();
     String arrayStr = toString(userArray);
     String messageTitle = "Here is Your 'Number List'!";
     String dataMessage = "Duplicates:\n";
 
-    if (nDuplicated > 0) {
-      for (int[] col : duplicateData) {
+    if (!duplicateData.isEmpty()) {
+      for (int i = 0; i < duplicateData.size(); i++) {
+        int[] col = duplicateData.get(i);
         String line = "  " + col[0] + "    appears " + col[1] + " times\n";
         dataMessage += line;
       }
