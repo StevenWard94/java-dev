@@ -15,17 +15,25 @@
  * containing either a single 'X' or 'O' symbol. A player wins the game by having three like symbols
  * in a single column, row, or diagonal.
  *
+ * TODO: DOCUMENTATION!
+ *        - rewrite class description
+ *        - write method descriptions and line comments
  */
 
 public class GameBoard {
 
+  // Only instance field of the GameBoard class.
   private char[][] board;
 
+  // Only initializer (default) for the GameBoard class.
   public GameBoard() {
     this.board = new char[3][3];
     this.resetBoard();
   }
 
+
+  // DEFINITION OF PRIVATE INSTANCE METHODS
+  // --------------------------------------
 
   public void resetBoard() {
     for (int row = 0; row < 3; row++) {
@@ -51,7 +59,7 @@ public class GameBoard {
 
 
   public boolean attemptPlay(int row, int col, char mark) {
-    mark = toLowerCase(mark);
+    mark = Character.toLowerCase(mark);
 
     if ( !(mark == 'x' || mark == 'o') ) {
       return false;
