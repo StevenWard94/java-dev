@@ -1,2 +1,0 @@
-INDEX VERSION 1.129+/home/steven/lib/Java.d/CSCI-2903/Module2/.metadata/.plugins/org.eclipse.jdt.core
-373941437.index
