@@ -24,6 +24,7 @@
  * @see #width
  * @see #getArea
  * @see #toString
+ * @see RoomCarpet
  * @see RoomCarpet#size
  */
 

@@ -10,7 +10,7 @@
 
 /**
  * RoomCarpet class to "wrap" the general process of determining the cost to carpet a room.
- * The 'RoomCarpet' class serves as a sort of "model" component for this (WardCarpetCalculator)
+ * The 'RoomCarpet' class serves as a sort of "model" component for this (Carpet Calculator)
  * program. It stores user input in its two member fields: 1) 'size', which stores length and width
  * values retrieved from the user and calculates the corresponding area, and 2) 'carpetCost' to hold
  * the price per square foot of carpet provided by the user. With those above fields containing
@@ -22,11 +22,8 @@
  * @see #carpetCost
  * @see #getTotalCost
  * @see #toString
- * @see RoomDimension#length
- * @see RoomDimension#width
- * @see RoomDimension#getArea
- * @see WardCarpetCalculator#main
- *
+ * @see RoomDimension
+ * @see WardCarpetCalculator#main(String[] args)
  */
 
 public class RoomCarpet {
