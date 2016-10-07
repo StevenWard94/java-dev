@@ -2,7 +2,7 @@
  * Steven Ward
  * RoomDimension.java | Carpet Calculator Project
  *
- * The file contains the definition of the RoomDimension class, which is described below.
+ * This file contains the definition of the RoomDimension class, which is described below.
  *
  * Due Date: October 09, 2016
  *
@@ -42,6 +42,6 @@ public class RoomDimension {
   }
 
   public String toString() {
-    return ( "The room is " + this.length + "ft x " + this.width + "ft, giving it an area of " + this.getArea() + "sq.ft." );
+    return ( "The room is " + this.length + "ft x " + this.width + "ft, giving it an area of " + this.getArea() + "sq ft" );
   }
 }
