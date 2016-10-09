@@ -20,28 +20,57 @@
  * function, which returns a String output of the information contained in, and provided by, an
  * instance of the 'RoomDimension' class. A public constructor is also provided.
  *
- * @see #length
- * @see #width
- * @see #getArea
- * @see #toString
- * @see RoomCarpet
- * @see RoomCarpet#size
  */
-
 public class RoomDimension {
 
   private final double length;  // A room's length in feet.
   private final double width;   // A room's width in feet.
 
+  /**
+   * Sole constructor.
+   * Constructs a 'RoomDimension' object from two parameters, which are each used to initialize the
+   * corresponding member variables for this instance.
+   *
+   * @param len  the room's length measurement, given in feet
+   * @param w    the room's width measurement, given in feet
+   *
+   * @see #length
+   * @see #width
+   *
+   */
   public RoomDimension(double len, double w) {
     this.length = len;
     this.width = w;
   }
 
+  /**
+   * Retrieves the room's area in square feet.
+   * Accesses the two private instance members, length and width, and uses their values to calculate
+   * the room's area.
+   *
+   * @return double value calculated with the function, 'length * width'
+   *
+   * @see    #length
+   * @see    #width
+   *
+   */
   public double getArea() {
     return this.length * this.width;
   }
 
+  /**
+   * Translates an instance's related data into a String.
+   * Constructs a String object, which relates the instance's length and width members, as well as
+   * the value returned by its getArea() function.
+   *
+   * @return String translation of data for the instance
+   *
+   * @see    #length
+   * @see    #width
+   * @see    #getArea()
+   * @see    RoomCarpet#toString()
+   *
+   */
   public String toString() {
     return ( "The room is " + this.length + "ft x " + this.width + "ft, giving it an area of " + this.getArea() + "sq ft" );
   }
