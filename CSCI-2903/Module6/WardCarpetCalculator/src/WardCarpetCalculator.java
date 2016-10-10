@@ -28,23 +28,48 @@ import javax.swing.SwingConstants;
  * total cost of the carpeting, based on the user's input, and displays it for the user. This
  * process is repeated as long as the user would like to calculate total costs.
  *
- * @see #main(String[] args)
- * @see RoomCarpet#getTotalCost
- * @see RoomCarpet#toString
- * @see RoomDimension
  */
 public class WardCarpetCalculator {
 
+  // String constant for use in showXxxDialog(..) methods
   public static final String DIALOG_TITLE = "Carpet Calculator! courtesy of Westfield Carpet Company";
+  // String constant to fill showInputDialog's lack of 'CLOSED_OPTION' return value
   public static final String CLOSED_DIALOG = "USER CLOSED INPUT DIALOG";
+  // constant for the value used in 'width' attribute of <body ..> HTML tags
   public static final int TEXT_WIDTH = 500;
 
+  /**
+   * Main execution process.
+   * Displays the help dialog once and then gives control to applicationController().
+   *
+   * @param args    String[] of command-line arguments passed to java command
+   *
+   * @see           #showHelpDialog( )
+   * @see           #applicationController( )
+   *
+   */
   public static void main(String[] args) {
     showHelpDialog();
     applicationController();
   }
 
-
+  /**
+   * Controls the loop in which the "calculation process" is defined.
+   * As the larger of the two statements in the main(..) function, it is the highest-order function
+   * of the "calculation process". It consists of a single 'do..while' loop, which defines the
+   * process of getting data from the user, calculating total cost, and prompting the user to
+   * continue or exit. The loop will execute at least once and will continue to do so until the user
+   * specifies that they would like to exit the application.
+   *
+   * @see       #main(String[])
+   * @see       #buildRoomCarpetObj(double[])
+   * @see       #getDimensions( )
+   * @see       #wrapMessage(int, String)
+   * @see       #showContinuePrompt( )
+   * @see       RoomCarpet
+   * @see       RoomDimension
+   *
+   */
   public static void applicationController () {
     do {
       RoomCarpet currentCalculation = buildRoomCarpetObj( getDimensions() );
@@ -57,6 +82,20 @@ public class WardCarpetCalculator {
   }
 
 
+  /**
+   * Handles invalid arguments to Double.parseDouble(String).
+   * Allows this program to gracefully handle NumberFormatException objects thrown by the function,
+   * Double.parseDouble(String), when it is passed a String that does not represent a double value.
+   * Returns a boolean value corresponding to the success of a call to Double.parseDouble with the
+   * argument supplied.
+   *
+   * @param value  String to be tested for its validity as a parsed double value
+   * @return       'false' if NumberFormatException is thrown; otherwise 'true'
+   *
+   * @see          java.lang.Double.parseDouble(String)
+   * @see          java.lang.NumberFormatException
+   *
+   */
   private static boolean tryParseDouble(String value) {
     try {
       Double.parseDouble(value);
@@ -68,6 +107,30 @@ public class WardCarpetCalculator {
   }
 
 
+  /**
+   * Aquires carpet's unit cost and constructs the RoomCarpet object for the current calculation.
+   * Takes over requisition of user data once the length and width measurements have been received.
+   * Prompts the user to enter the cost, in dollars per square foot, of his/her carpets. Invalid
+   * input or closing of window are handled to prevent using problematic or 'null' values. Once
+   * a valid, non-null String has been received, it is parsed into a double value. Along with
+   * a RoomDimension object constructed from the array parameter's values, this double value is used
+   * to initialize a RoomCarpet object having the attributes specified by the user.
+   *
+   * @param dimensions  double[] with at least two elements, representing the room's length and
+   *                    width; trailing elements are ignored when length exceeds 2
+   * @return            RoomCarpet object initialized with the values supplied by the user
+   *
+   * @see               #getDimensions( )
+   * @see               #showExitPrompt( )
+   * @see               #wrapMessage(int, String)
+   * @see               RoomCarpet#size
+   * @see               RoomCarpet#carpetCost
+   * @see               RoomCarpet#RoomCarpet(RoomDimension, double)
+   * @see               RoomDimension#length
+   * @see               RoomDimension#width
+   * @see               RoomDimension#RoomDimension(double, double)
+   *
+   */
   private static RoomCarpet buildRoomCarpetObj(final double[] dimensions) {
     final int msg_t = JOptionPane.QUESTION_MESSAGE;
     // First, extract length and width values from 'double[] dimensions' parameter...
@@ -114,6 +177,21 @@ public class WardCarpetCalculator {
   }
 
 
+  /**
+   * Recieve length and width measurements from user.
+   * Retrieves the room's 'length' and 'width' measurements for the current calculation. This is
+   * accomplished in a manner very similar to that used in the 'buildRoomCarpetObj' function. Once
+   * 2 acceptable double values have been acquired, the function returns them in a double[].
+   *
+   * @return    double[] containing two values representing the 'length' and 'width', in that order
+   *
+   * @see       #buildRoomCarpetObj(double[])
+   * @see       #wrapMessage(int, String)
+   * @see       #showExitPrompt( )
+   * @see       RoomDimension#RoomDimension(double length, double width)
+   * @see       RoomCarpet#RoomCarpet(RoomDimension size, double cost)
+   *
+   */
   private static double[] getDimensions() {
     // Constant for 'int messageType' parameter of 'JOptionPane.showInputDialog' function.
     final int msg_t = JOptionPane.QUESTION_MESSAGE;
@@ -201,10 +279,28 @@ public class WardCarpetCalculator {
 
 
 
+  /**
+   * Provides HTML formatting for messages in JOptionPane dialogs.
+   * Prevents inconsistencies in JOptionPane dialogs' wrapping of messages. Generates a String
+   * containing a 'body' HTML tag, which has an inline CSS 'style' attribute. The attribute's value
+   * is determined from the 'width' argument, in pixels (px). The 'message' argument is then
+   * appended to the resulting String of HTML and passed to a JLabel constructor. This JLabel object
+   * can be passed to any 'JOptionPane.showXxxDialog' as the 'message' parameter because these
+   * methods specify its type as 'Object'. The final result is text wrapping at the specified width
+   * in JOptionPane dialogs.
+   *
+   * @param width    the desired text-width of the message
+   * @param message  the message to be displayed with text wrapping
+   * @return         JLabel object with the given text and "leading-edge" horizontal alignment
+   *
+   * @see            javax.swing.JLabel#JLabel(String, int)
+   * @see            javax.swing.SwingConstants#LEADING
+   *
+   */
   private static JLabel wrapMessage(int width, final String message) {
     final String preHtml = "<html><body style='width: ";
     final String postHtml = "px'>";
-    return new JLabel(preHtml + width + postHtml + message, SwingConstants.CENTER);
+    return new JLabel(preHtml + width + postHtml + message, SwingConstants.LEADING);
   }
 
 
@@ -229,6 +325,18 @@ public class WardCarpetCalculator {
   }
 
 
+  /**
+   * Prompts the user to either "continue" or "exit".
+   * Serves as the loop control in applicationController() method. Determines and returns a boolean
+   * value corresponding to whether or not the user wishes to repeat the calculation process.
+   *
+   * @return    boolean value of the user's choice to either "continue" ('true') or "exit" ('false')
+   *
+   * @see       #applicationController( )
+   * @see       #showHelpDialog( )
+   * @see       #showExitPrompt( )
+   *
+   */
   private static boolean showContinuePrompt() {
     final String continueMessage = "Would you like to continue using the Carpet Calculator?";
     final String continueTitle = "Continue? | " + DIALOG_TITLE;
@@ -263,6 +371,12 @@ public class WardCarpetCalculator {
   }
 
 
+  /**
+   * Confirms that the user meant to quit by prematurely closing a dialog window.
+   * Returns a boolean value corresponding to the user's desire ('true') or lack thereof ('false')
+   * to exit the program.
+   *
+   */
   private static boolean showExitPrompt() {
     final String exitMessage = "Are you sure you want to quit? Current calculation progress will not be saved.";
     final String exitTitle = "Exit? | " + DIALOG_TITLE;
