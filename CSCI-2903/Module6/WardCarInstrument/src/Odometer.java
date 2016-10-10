@@ -8,8 +8,6 @@
  *
  */
 
-package wardCarInstrument;
-
 /**
  * Odometer class to simulate a car's odometer.
  *

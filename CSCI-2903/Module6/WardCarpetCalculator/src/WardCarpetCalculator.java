@@ -92,7 +92,7 @@ public class WardCarpetCalculator {
    * @param value  String to be tested for its validity as a parsed double value
    * @return       'false' if NumberFormatException is thrown; otherwise 'true'
    *
-   * @see          java.lang.Double.parseDouble(String)
+   * @see          java.lang.Double#parseDouble(String)
    * @see          java.lang.NumberFormatException
    *
    */

@@ -6,13 +6,7 @@
  *
  * Due Date: October 09, 2016
  *
- * TODO: DOCUMENT CAR CLASS AND ITS MEMBERS
- *       DOCUMENT MAIN METHOD
- *       DOCUMENT PAUSE METHOD
- *
  */
-
-package wardCarInstrument;
 
 import java.util.Scanner;
 

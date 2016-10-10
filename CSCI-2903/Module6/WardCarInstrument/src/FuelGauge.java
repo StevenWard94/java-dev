@@ -8,8 +8,6 @@
  *
  */
 
-package wardCarInstrument;
-
 /**
  * FuelGauge class to simulate a car's fuel gauge.
  *
