@@ -35,11 +35,10 @@ public class Ship {
    * within the definitions of classes derived from this one. Declared with the 'final' modifier to
    * prevent unnecessary and/or problematic overrides in subclasses.
    *
-   * @return String    the String referenced by the instance's 'name_' member
-   *
-   * @see              #name_
-   * @see              #name(String)
-   * @see              #Ship(String,String)
+   * @return       the String referenced by the instance's 'name_' member
+   * @see          #name_
+   * @see          #name(String)
+   * @see          #Ship(String,String)
    */
   public final String name( ) {
     return this.name_;
@@ -52,11 +51,10 @@ public class Ship {
    * especially from within the definitions of classes derived from this one. Declared with the
    * 'final' modifier to prevent unnecessary and/or problematic overrides in subclasses.
    *
-   * @param name       the String that is to be referenced by the instance's 'name_' member
-   *
-   * @see              #name_
-   * @see              #name( )
-   * @see              #Ship(String,String)
+   * @param  name  the String that is to be referenced by the instance's 'name_' member
+   * @see          #name_
+   * @see          #name( )
+   * @see          #Ship(String,String)
    */
   public final void name(String name) {
     this.name_ = name;
@@ -69,11 +67,10 @@ public class Ship {
    * within the definitions of classes derived from this one. Declared with the 'final' modifier to
    * prevent unnecessary and/or problematic overrides in subclasses.
    *
-   * @return String    the String referenced by the instance's 'year_' member
-   *
-   * @see              #year_
-   * @see              #year(String)
-   * @see              #Ship(String,String)
+   * @return       the String referenced by the instance's 'year_' member
+   * @see          #year_
+   * @see          #year(String)
+   * @see          #Ship(String,String)
    */
   public final String year( ) {
     return this.year_;
@@ -86,11 +83,10 @@ public class Ship {
    * especially from within the definitions of classes derived from this one. Declared with the
    * 'final' modifier to prevent unnecessary and/or problematic overrides in subclasses.
    *
-   * @param year       the String that is to be referenced by the instance's 'year_' member
-   *
-   * @see              #year_
-   * @see              #year( )
-   * @see              #Ship(String,String)
+   * @param  year  the String that is to be referenced by the instance's 'year_' member
+   * @see          #year_
+   * @see          #year( )
+   * @see          #Ship(String,String)
    */
   public final void year(String year) {
     this.year_ = year;
@@ -103,15 +99,31 @@ public class Ship {
    * the year in which the ship was built. These Strings are assigned to the corresponding member
    * fields of the newly-instantiated 'Ship' object.
    *
-   * @param name    String object containing the ship's name
-   * @param year    String object containing the year in which the ship was built
-   * @see           #name_
-   * @see           #year_
-   * @see           CruiseShip#CruiseShip(String,String,int)
-   * @see           CargoShip#CargoShip(String,String,int)
+   * @param  name  String object containing the ship's name
+   * @param  year  String object containing the year in which the ship was built
+   * @see          #name_
+   * @see          #year_
+   * @see          CruiseShip#CruiseShip(String,String,int)
+   * @see          CargoShip#CargoShip(String,String,int)
    */
   public Ship(String name, String year) {
     this.name(name);
     this.year(year);
+  }
+
+
+  /**
+   * Provides a String representation of the data relating to a Ship object.
+   * Overrides the default 'toString' method inherited from java.lang.Object to provide
+   * a human-readable description of the calling instance. The returned String maintains a standard
+   * format, with only the values referenced by the instance's two member fields as variables.
+   *
+   * @return       String with the format: "The ${NAME}, built in ${YEAR}."
+   * @see          #name_
+   * @see          #year_
+   * @see          java.lang.Object#toString
+   */
+  public String toString( ) {
+    return ( "The " + this.name_ + ", built in " + this.year_ + "." );
   }
 }
