@@ -19,10 +19,6 @@
  *
  * @see CruiseShip
  * @see CargoShip
- * @see #name_
- * @see #year_
- * @see #Ship(String,String)
- * @see #toString( )
  */
 public class Ship {
 
@@ -94,6 +90,22 @@ public class Ship {
 
 
   /**
+   * Provides a String representation of the data relating to a Ship object.
+   * Overrides the default 'toString' method inherited from java.lang.Object to provide
+   * a human-readable description of the calling instance. The returned String maintains a standard
+   * format, with only the values referenced by the instance's two member fields as variables.
+   *
+   * @return       String with the format: "The ${NAME}, built in ${YEAR}."
+   * @see          #name_
+   * @see          #year_
+   * @see          java.lang.Object#toString
+   */
+  public String toString( ) {
+    return ( "The " + this.name_ + ", built in " + this.year_ + "." );
+  }
+
+
+  /**
    * Single constructor of this class.
    * Accepts two String parameters, the first containg the ship's name, and the second containing
    * the year in which the ship was built. These Strings are assigned to the corresponding member
@@ -109,21 +121,5 @@ public class Ship {
   public Ship(String name, String year) {
     this.name(name);
     this.year(year);
-  }
-
-
-  /**
-   * Provides a String representation of the data relating to a Ship object.
-   * Overrides the default 'toString' method inherited from java.lang.Object to provide
-   * a human-readable description of the calling instance. The returned String maintains a standard
-   * format, with only the values referenced by the instance's two member fields as variables.
-   *
-   * @return       String with the format: "The ${NAME}, built in ${YEAR}."
-   * @see          #name_
-   * @see          #year_
-   * @see          java.lang.Object#toString
-   */
-  public String toString( ) {
-    return ( "The " + this.name_ + ", built in " + this.year_ + "." );
   }
 }
