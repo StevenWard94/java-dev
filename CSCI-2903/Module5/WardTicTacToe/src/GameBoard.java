@@ -89,8 +89,21 @@ public class GameBoard {
   }
 
 
-  public boolean hasWinner() {
-    return winByRow() || winByColumn() || winByDiagonal();
+  public char checkForWin() {
+    int winRow = this.winByRow(), winCol = this.winByColumn(),
+            winDiag = this.winByDiagonal();
+    char winner = '-';
+    
+    if (winRow != -1) {
+      winner = this.board[winRow][0];
+    }
+    else if (winCol != -1) {
+      winner = this.board[0][winCol];
+    }
+    else if (winDiag != -1) {
+      winner = this.board[0][winDiag];
+    }
+    return winner;
   }
 
 
@@ -110,34 +123,38 @@ public class GameBoard {
   }
 
 
-  private boolean winByRow() {
-    boolean winner = false;
-    for (int row = 0; row < 3; row++) {
-      winner = charCompare3(this.board[row]) ? true : winner;
+  private int winByRow() {
+    int winRow = -1;
+    
+    int row = 0;
+    while (row < 3 && winRow == -1) {
+      winRow = charCompare3(this.board[row]) ? row : winRow;
+      row++;
     }
-    return winner;
+    return winRow;
   }
 
 
-  private boolean winByColumn() {
-    boolean winner = false;
+  private int winByColumn() {
+    int winCol = -1;
     int col = 0;
-    while (col < 3 && !winner) {
+    while (col < 3 && winCol == -1) {
       char[] column =
           { this.board[0][col], this.board[1][col], this.board[2][col] };
-      winner = charCompare3(column) ? true : winner;
+      winCol = charCompare3(column) ? col : winCol;
       col++;
     }
-    return winner;
+    return winCol;
   }
 
 
-  private boolean winByDiagonal() {
+  private int winByDiagonal() {
     char[] diagA =
         { this.board[0][0], this.board[1][1], this.board[2][2] };
     char[] diagB =
         { this.board[0][2], this.board[1][1], this.board[2][0] };
 
-    return ( charCompare3(diagA) || charCompare3(diagB) );
+    return charCompare3(diagA) ? 0 :
+           charCompare3(diagB) ? 2 : -1;
   }
 }

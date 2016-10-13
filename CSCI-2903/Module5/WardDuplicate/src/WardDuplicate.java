@@ -53,7 +53,7 @@ public class WardDuplicate {
 
       while (!tryParseInt(elementStr) || Integer.parseInt(elementStr) < 1 || Integer.parseInt(elementStr) > userArray.length) {
         String errTitle = "Invalid Element!";
-        elementStr = JOptionPane.showInputDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
+        elementStr = JOptionPane.showInputDialog(null, message, errTitle, JOptionPane.ERROR_MESSAGE);
       }
       userArray[index] = Integer.parseInt(elementStr);
       return getElements(userArray, ++index);
