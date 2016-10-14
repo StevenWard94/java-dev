@@ -43,9 +43,9 @@ public class Ship {
 
   /**
    * Provides mutator-access to private member field, 'name_'.
-   * Allows the value of 'name_' to be accessed, and modified, from outside this class definition,
-   * especially from within the definitions of classes derived from this one. Declared with the
-   * 'final' modifier to prevent unnecessary and/or problematic overrides in subclasses.
+   * Allows the value of 'name_' to be modified from outside this class definition, especially from
+   * within the definitions of classes derived from this one. Declared with the 'final' modifier to
+   * prevent unnecessary and/or problematic overrides in subclasses.
    *
    * @param  name  the String that is to be referenced by the instance's 'name_' member
    * @see          #name_
@@ -75,9 +75,9 @@ public class Ship {
 
   /**
    * Provides mutator-access to private member field, 'year_'.
-   * Allows the value of 'year_' to be accessed, and modified, from outside this class definition,
-   * especially from within the definitions of classes derived from this one. Declared with the
-   * 'final' modifier to prevent unnecessary and/or problematic overrides in subclasses.
+   * Allows the value of 'year_' to be modified from outside this class definition, especially from
+   * within the definitions of classes derived from this one. Declared with the 'final' modifier to
+   * prevent unnecessary and/or problematic overrides in subclasses.
    *
    * @param  year  the String that is to be referenced by the instance's 'year_' member
    * @see          #year_
