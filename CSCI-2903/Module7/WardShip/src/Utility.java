@@ -20,17 +20,17 @@ import javax.swing.SwingConstants;
  */
 public class Utility {
 
-  public static final int ALIGN_L = SwingConstants.LEFT;
-  public static final int ALIGN_C = SwingConstants.CENTER;
+  public static final int WRAP = 650;
 
-  public static final int MESSAGE_Q = JOptionPane.QUESTION_MESSAGE;
-  public static final int MESSAGE_E = JOptionPane.ERROR_MESSAGE;
-  public static final int MESSAGE_I = JOptionPane.INFORMATION_MESSAGE;
+  /** Aliases for several constants defined in the 'javax.swing.JOptionPane' class. */
+  public static final int QUESTION = JOptionPane.QUESTION_MESSAGE;
+  public static final int ERROR = JOptionPane.ERROR_MESSAGE;
+  public static final int INFO = JOptionPane.INFORMATION_MESSAGE;
+  public static final int WARNING = JOptionPane.WARNING_MESSAGE;
 
-  public static final int OPT_DEFAULT = JOptionPane.DEFAULT_OPTION;
-  public static final int OPT_YNC = JOptionPane.YES_NO_CANCEL_OPTION;
-  public static final int YES_OPT = JOptionPane.YES_OPTION;
-  public static final int NO_OPT = JOptionPane.NO_OPTION;
+  public static final int YES = JOptionPane.YES_OPTION;  // same value as 'OK_OPTION', 0
+  public static final int NO = JOptionPane.NO_OPTION;
+  public static final int CANCEL = JOptionPane.CANCEL_OPTION;
   public static final int CLOSED = JOptionPane.CLOSED_OPTION;
 
 
@@ -53,6 +53,19 @@ public class Utility {
     catch (NumberFormatException nfe) {
       return false;
     }
+  }
+
+
+  public static boolean confirmExit() {
+    final int optionType = JOptionPane.OK_CANCEL_OPTION;
+    final String prompt = "Are you sure you want to quit?";
+    final String title = "Exit?";
+    Object[] choices = { "Quit", "Resume" };
+
+    final int opt = JOptionPane.showOptionDialog( null, format(Utility.WRAP, prompt, SwingConstants.LEFT)
+        , title, optionType, Utility.WARNING, null, choices, choices[1] );
+
+    return (opt == Utility.YES || opt == Utility.CLOSED);
   }
 
 
