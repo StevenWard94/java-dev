@@ -60,7 +60,7 @@ public class Utility {
     final int optionType = JOptionPane.OK_CANCEL_OPTION;
     final String prompt = "Are you sure you want to quit?";
     final String title = "Exit?";
-    Object[] choices = { "Quit", "Resume" };
+    final Object[] choices = { "Quit", "Resume" };
 
     final int opt = JOptionPane.showOptionDialog( null, format(Utility.WRAP, prompt, SwingConstants.LEFT)
         , title, optionType, Utility.WARNING, null, choices, choices[1] );
