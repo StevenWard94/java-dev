@@ -8,7 +8,9 @@
  *
  */
 
-import java.util.ArrayDeque;
+import java.util.Iterator;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,8 +19,72 @@ import javax.swing.SwingConstants;
 
 public class WardShip {
 
-  public static void main(String[] args) {
+  public static final int BASIC_SHIP = 1001;
+  public static final int CRUISE_SHIP = 1010;
+  public static final int CARGO_SHIP = 1011;
 
+  public static void main(String[] args) {
+    JOptionPane.showConfirmDialog( null,
+      Utility.format(400, "Welcome to ShipBuilder! Please press the button below to get started!", SwingConstants.CENTER),
+      "Welcome!", JOptionPane.OK_OPTION, Utility.INFO );
+
+    final String numTitle = "How Many?";
+    final String numText = "Please enter the number of ships you would like to \"build\" today:";
+    String nShipsStr =
+      JOptionPane.showInputDialog( null, Utility.format(Utility.WRAP, numText, SwingConstants.LEFT)
+                                 , numTitle, Utility.QUESTION );
+
+    while (!Utility.tryParseInt(nShipsStr) || Integer.parseInt(nShipsStr) <= 0) {
+      final String errTitle = "Invalid Quantity!";
+      final String errText = "The value you entered for \"number of ships\" was invalid!<br>"
+          + "You entered: <font color=red>" + nShipsStr + "</font><br><p>" + numText;
+      nShipsStr =
+        JOptionPane.showInputDialog( null, Utility.format(Utility.WRAP, errText, SwingConstants.LEFT)
+                                   , errTitle, Utility.ERROR );
+    }
+    final int nShips = Integer.parseInt(nShipsStr);
+    BlockingQueue<Ship> shipQueue = new ArrayBlockingQueue<Ship>(nShips, true);
+
+    for (int i = 0; i < nShips; i++) {
+      final int shipType;
+      switch ( getShipType() ) {
+        case Utility.CLOSED: // fall through
+        case 0:
+          shipType = BASIC_SHIP;
+          break;
+        case 1:
+          shipType = CRUISE_SHIP;
+          break;
+        case 2:
+          shipType = CARGO_SHIP;
+          break;
+        default:
+          shipType = Utility.CLOSED;
+      }
+      final String[] generalInfo = getYear( getName() );
+      final String name = generalInfo[0];
+      final String year = generalInfo[1];
+      Ship ship = ( shipType == BASIC_SHIP ) ?
+          new Ship( name, year ) : ( shipType == CRUISE_SHIP ) ?
+          new CruiseShip( name, year, getCapacity(shipType) )  :
+          new CargoShip( name, year, getCapacity(shipType) );
+      if ( !shipQueue.offer(ship) ) {
+        break;
+      }
+    }
+    final String outTitle = "Your Ships!";
+    final String header = "<font size=+2>Here are your ships!</font><p>";
+    String shipList = "<ol>";
+
+    Iterator<Ship> it = shipQueue.iterator();
+    while ( it.hasNext() ) {
+      shipList += "<li>" + it.next().toString();
+    }
+    shipList += "</ol>";
+    final String outText = header + shipList;
+
+    JOptionPane.showMessageDialog( null, Utility.format(Utility.WRAP, outText, SwingConstants.LEFT)
+                                 , outTitle, Utility.INFO );
   }
 
 
@@ -48,6 +114,65 @@ public class WardShip {
         JOptionPane.showInputDialog( null, Utility.format(Utility.WRAP, prompt, SwingConstants.LEFT)
                                    , title, Utility.QUESTION );
     return name;
+  }
+
+
+  private static String[] getYear(final String name) {
+    final String title = "Step 2";
+    final String prompt = "2. Please enter the year in which the " + name + " was built:";
+    String year =
+        JOptionPane.showInputDialog( null, Utility.format(Utility.WRAP, prompt, SwingConstants.LEFT)
+                                   , title, Utility.QUESTION );
+
+    while ( year == null || "".equals(year) || !Utility.isValidYear(year) ) {
+      if (year == null || "".equals(year)) {
+        if (Utility.confirmExit()) {
+          System.exit(131);
+        }
+        else {
+          return getYear(name);
+        }
+      }
+      final String errTitle = "Whoops!";
+      final String errPrompt = "The year you entered was invalid!<br>"
+          + "You entered: <font color=red>" + year + "</font><br><p>" + prompt;
+
+      year = JOptionPane.showInputDialog( null
+                                        , Utility.format(Utility.WRAP, errPrompt, SwingConstants.LEFT)
+                                        , errTitle, Utility.ERROR );
+    }
+    return new String[] { name, year };
+  }
+
+
+  private static int getCapacity(int shipType) {
+    final String title = "Step 3";
+    final String prompt = shipType == CRUISE_SHIP ?
+        "3. Please enter the ship's maximum passenger capacity:" :
+        "3. Please enter the ship's maximum cargo weight capacity (in tons):";
+
+    String capacity =
+        JOptionPane.showInputDialog( null, Utility.format(Utility.WRAP, prompt, SwingConstants.LEFT)
+                                   , title, Utility.QUESTION );
+
+    while ( capacity == null || "".equals(capacity) || !Utility.tryParseInt(capacity) ) {
+      if (capacity == null || "".equals(capacity)) {
+        if (Utility.confirmExit()) {
+          System.exit(141);
+        }
+        else {
+          return getCapacity(shipType);
+        }
+      }
+      final String errTitle = "Whoops!";
+      final String errPrompt = "The capacity you entered was invalid!<br>"
+          + "You entered: <font color=red>" + capacity + "</font><br><p>" + prompt;
+
+      capacity = JOptionPane.showInputDialog( null
+                                            , Utility.format(Utility.WRAP, errPrompt, SwingConstants.LEFT)
+                                            , errTitle, Utility.ERROR );
+    }
+    return Integer.parseInt(capacity);
   }
 
   /**
