@@ -17,16 +17,60 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 
+/**
+ * Outlines the general procedure for this program including necessary methods and constants.
+ * Contains the entry point of this program, namely its 'main(String[])' method, which serves as the
+ * top-level "controller" for execution. Apart from the 'main' method, a number of other methods are
+ * defined to handle specific pieces of input (and output) within the overall user experience. In
+ * addition, contains the static nested 'Utility' class, which defines a number of constants and
+ * a few methods not directly included in the user's normal interface.
+ *
+ * @see            #Utility
+ */
 public class WardShip {
 
+  /** 3 constants for identifying ship types consistently (without using type-traits) */
   public static final int BASIC_SHIP = 1001;
   public static final int CRUISE_SHIP = 1010;
   public static final int CARGO_SHIP = 1011;
 
+  /**
+   * Serves as this program's entry point and top-level "controller" method.
+   * Manages the "outline" of this program's execution pattern through a primary loop to collect
+   * information, within which this class's other methods are implemented at the proper points. Its
+   * behavior, generally, also demonstrates the behavior of the program as a whole. First, the user
+   * is presented with a splash dialog to welcome them to the program. Then, the user is prompted
+   * for the number of ships they would like to "build"; in other words, the number of iterations
+   * they will complete and the size of the resulting 'ArrayBlockingQueue' of ships. Once a valid
+   * number is received, the core loop of this program is executed, which follows this general
+   * pattern:
+   *     1. Present the user with information about "types" of ships and have him/her select one
+   *     2. Get the ship's name (no validation on this string because a name could be anything)
+   *     3. Get the year in which the ship was built (must be at least 1000 and no more than 2016)
+   *     4. If the user selected a "type" other than 'Ship', prompt the user for the ship's capacity
+   * These 3 to 4 steps repeat for the number of times specified by the user. Once the desired
+   * number of ships have been "built" by the user, the list ('ArrayBlockingQueue<Ship>') is output
+   * back to the user by calling each 'Ship' object's respective 'toString()' overload. This
+   * program's execution terminates when this final window is closed in any way.
+   *
+   * @param  args  String array containing any commandline arguments passed to the 'java' command
+   *
+   * @see          #getShipType( )
+   * @see          #getName( )
+   * @see          #getYear(String)
+   * @see          WardShip.Utility
+   * @see          Ship#toString( )
+   * @see          CruiseShip#toString( )
+   * @see          CargoShip#toString( )
+   * @see          java.util.Iterator#hasNext( )
+   * @see          java.util.Iterator#next( )
+   * @see          java.util.concurrent.BlockingQueue
+   * @see          java.util.concurrent.ArrayBlockingQueue
+   */
   public static void main(String[] args) {
     JOptionPane.showConfirmDialog( null,
       Utility.format(400, "Welcome to ShipBuilder! Please press the button below to get started!", SwingConstants.CENTER),
-      "Welcome!", JOptionPane.OK_OPTION, Utility.INFO );
+      "Welcome!", JOptionPane.DEFAULT_OPTION, Utility.INFO );
 
     final String numTitle = "How Many?";
     final String numText = "Please enter the number of ships you would like to \"build\" today:";
@@ -88,6 +132,32 @@ public class WardShip {
   }
 
 
+  /**
+   * Provides the user with the necessary information and interface to select a "type" of ship.
+   * Generates a single dialog window, which lists the 3 supported "types" of ships and the
+   * information that will be needed to "build" them. The list uses a 'JLabel' to enable use of HTML
+   * for formatting [@see WardShip.Utility#format(int,String,int)]. The HTML is primarily used to
+   * generated an unordered list of 3 bullets, each of which containing the "type" of ship as well
+   * as a nested, ordered list of the respective requirements for that "type". All HTML tags used
+   * here will be listed below this description text. At the bottom of the dialog are 3 buttons,
+   * each of which corresponding to one of the 3 "types" described, displayed below a line of text
+   * prompting the user to select one of the buttons. The user's selection is returned by the
+   * 'showOptionDialog' method as its subscript in the array of choices passed to the function. For
+   * example, given { "A", "B", "1", "2" }, clicking the button labeled with "1" would return an int
+   * value of '2'.
+   *
+   * HTML Tags Used:
+   *     <br>      defines a line break ('\n' not supported) - no closing tag
+   *     <font>    defines font attributes - attributes used: 'size', 'color'
+   *     </i>      defines italicized text
+   *     <li>      defines a list item for both an ordered and unordered list
+   *     <ol>      defines an ordered list
+   *     <ul>      defines an unordered list
+   *
+   * @return       int corresponding to the user's "type" selection
+   * @see          #main(String[])
+   * @see          WardShip.Utility
+   */
   private static int getShipType( ) {
     final String title = "Choosing the Type of Ship";
     final String content = "<font size=+2>The information required for each of type of ship is listed below:</font><br>"
@@ -107,6 +177,16 @@ public class WardShip {
   }
 
 
+  /**
+   * Generates the dialog to get the name of a ship from the user.
+   * Presents the user with an input dialog asking for the name of a ship. There are no validation
+   * checks in this method because it is too difficult to define what is or is not a valid ship name.
+   *
+   * @return       String containing the name entered by the user
+   * @see          Ship#name_
+   * @see          Ship#name( )
+   * @see          Ship#Ship(String,String)
+   */
   private static String getName( ) {
     final String title = "Step 1";
     final String prompt = "1. Please enter the name of the ship:";
@@ -117,6 +197,25 @@ public class WardShip {
   }
 
 
+  /**
+   * Prompts the user for the year the ship was built and validates the resulting input.
+   * Shows a dialog similar to that of 'getName()', in which it encorporates the ship's name
+   * (received as the argument) into the prompt. If the year given is invalid, the user is
+   * repeatedly prompted for a valid one. If they close the window without entering a year, they are
+   * shown the 'confirmExit()' dialog and, if they resume, control is handed back to the start of
+   * the method's execution. When a valid year has been acquired, it is packaged into a String array
+   * with the 'name' argument as its first element, followed by the 'year' String.
+   *
+   * @param  name  String containing the 'name' of the ship in question
+   * @return       String array containing the 'name' and 'year' of the ship, in that order
+   *
+   * @see          WardShip.Utility#format(int,String,int)
+   * @see          WardShip.Utility#isValidYear(String)
+   * @see          WardShip.Utility#confirmExit( )
+   * @see          Ship#year_
+   * @see          Ship#year( )
+   * @see          Ship#Ship(String,String)
+   */
   private static String[] getYear(final String name) {
     final String title = "Step 2";
     final String prompt = "2. Please enter the year in which the " + name + " was built:";
@@ -145,6 +244,24 @@ public class WardShip {
   }
 
 
+  /**
+   * Prompts the user to enter the ship's corresponding capacity and validates the input.
+   * Behaves in a similar manner to 'getYear()', except that it determines the prompt based on ship
+   * type; since both the 'CruiseShip' and 'CargoShip' classes have a field for "capacity" of some
+   * sort. The input is validated to ensure that it represents a value which can safely be expressed
+   * as an 'int'.
+   *
+   * @param  shipType  int value designating the "type" of ship - one of this class's constants
+   * @return           int value representing the "capacity" entered by the user
+   *
+   * @see              WardShip.Utility#tryParseInt(String)
+   * @see              CruiseShip#passengerCap_
+   * @see              CargoShip#cargoCap_
+   * @see              CruiseShip#capacity
+   * @see              CargoShip#capacity
+   * @see              CruiseShip#CruiseShip(String,String,int)
+   * @see              CargoShip#CargoShip(String,String,int)
+   */
   private static int getCapacity(int shipType) {
     final String title = "Step 3";
     final String prompt = shipType == CRUISE_SHIP ?
@@ -186,7 +303,7 @@ public class WardShip {
    */
   public static class Utility {
 
-    public static final int WRAP = 650;
+    public static final int WRAP = 800;
 
     /** Aliases for several constants defined in the 'javax.swing.JOptionPane' class. */
     public static final int QUESTION = JOptionPane.QUESTION_MESSAGE;
@@ -200,6 +317,14 @@ public class WardShip {
     public static final int CLOSED = JOptionPane.CLOSED_OPTION;
 
 
+    /**
+     * Allows for exception-safe testing of Strings that may not be valid representations of an int.
+     * Simple method to determine whether or not a String can be parsed to an int value, while
+     * simultaneously handling a (possibly) resulting exception by using it to return a useful
+     * value.
+     *
+     * @see        java.lang.Integer#parseInt(String)
+     */
     public static boolean tryParseInt(final String value) {
       try {
         Integer.parseInt(value);
