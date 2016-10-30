@@ -20,8 +20,8 @@ public class KiloConverter extends JFrame
     private JLabel messageLabel;            // To reference a label
     private JTextField kiloTextField;       // To reference a text field
     private JButton calcButton;             // To reference a button
-    private final int WINDOW_WIDTH = 310;   // Window width
-    private final int WINDOW_HEIGHT = 100;  // Window height
+    private final int WINDOW_WIDTH = 930;   // Window width
+    private final int WINDOW_HEIGHT = 300;  // Window height
 
     /**
      * Constructor
