@@ -2,7 +2,7 @@
  * Steven Ward
  * WardPropertyTax.java | Property Tax Project
  *
- * This file contains the WardPropertyTax GUI class, which is described below.
+ * This file contains the WardPropertyTax GUI class, which is defined below.
  *
  * Due Date: October 30, 2016
  *
@@ -11,6 +11,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.text.DecimalFormat;
 
 public class WardPropertyTax extends JFrame {
 
@@ -19,9 +20,7 @@ public class WardPropertyTax extends JFrame {
 
   private static final long serialVersionUID = 0L;
 
-  private static final int WINDOW_WIDTH = 930;
-  private static final int WINDOW_HEIGHT = 600;
-  private static final String WINDOW_TITLE = "Property Tax WardPropertyTax";
+  private static final String WINDOW_TITLE = "Property Tax Calculator";
 
   private final JLabel promptLabel = new JLabel("Enter the property's actual value:", JLabel.LEFT);
   private final JLabel errorLabel = new JLabel("Please enter a valid property value:", JLabel.LEFT);
@@ -30,6 +29,8 @@ public class WardPropertyTax extends JFrame {
   private final JButton assessmentValueButton = new JButton("Calculate Assessment Value");
   private final JButton propertyTaxButton = new JButton("Calculate Property Tax");
   private final JButton helpButton = new JButton("Help?");
+
+  private final DecimalFormat currency = new DecimalFormat("#,###,###,###.00");
 
   private JLabel resultLabel;
   private JPanel textPanel, buttonPanel;
@@ -58,8 +59,6 @@ public class WardPropertyTax extends JFrame {
 
     setTitle(WINDOW_TITLE);
 
-    setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-
     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     addWindowListener(closedListener);
 
@@ -67,6 +66,7 @@ public class WardPropertyTax extends JFrame {
     add(textPanel, BorderLayout.CENTER);
     add(buttonPanel, BorderLayout.SOUTH);
 
+    pack();
     setVisible(true);
   }
 
@@ -102,6 +102,9 @@ public class WardPropertyTax extends JFrame {
                   = calculateAssessmentValue(userInputField.getText());
 
           WardPropertyTax.this.remove(textPanel);
+          textPanel.removeAll();
+          textPanel.add(promptLabel);
+          textPanel.add(userInputField);
 
           resultLabel = new JLabel(resultMessage, JLabel.CENTER);
           textPanel.add(resultLabel);
@@ -116,6 +119,9 @@ public class WardPropertyTax extends JFrame {
         catch (IllegalArgumentException assessValE) {
           JLabel infoLabel = WardPropertyTax.makeErrorLabel(assessValE);
           WardPropertyTax.this.remove(textPanel);
+          textPanel.removeAll();
+          textPanel.add(errorLabel);
+          textPanel.add(userInputField);
           textPanel.add(infoLabel);
           textPanel.validate();
           textPanel.repaint();
@@ -130,6 +136,9 @@ public class WardPropertyTax extends JFrame {
           String resultMessage
                   = calculatePropertyTax(userInputField.getText());
           WardPropertyTax.this.remove(textPanel);
+          textPanel.removeAll();
+          textPanel.add(promptLabel);
+          textPanel.add(userInputField);
 
           resultLabel = new JLabel(resultMessage, JLabel.CENTER);
           textPanel.add(resultLabel);
@@ -144,6 +153,9 @@ public class WardPropertyTax extends JFrame {
         catch (IllegalArgumentException propertyTaxE) {
           JLabel infoLabel = WardPropertyTax.makeErrorLabel(propertyTaxE);
           WardPropertyTax.this.remove(textPanel);
+          textPanel.removeAll();
+          textPanel.add(errorLabel);
+          textPanel.add(userInputField);
           textPanel.add(infoLabel);
           textPanel.validate();
           textPanel.repaint();
@@ -161,7 +173,7 @@ public class WardPropertyTax extends JFrame {
 
 
   private String calculateAssessmentValue(final String input) throws IllegalArgumentException {
-    if (input == null) {
+    if (input.trim().isEmpty()) {
       throw new IllegalArgumentException("Error! No input provided.");
     }
     else if (!tryParseDouble(input)) {
@@ -170,7 +182,8 @@ public class WardPropertyTax extends JFrame {
     else {
       final double propertyValue = Double.parseDouble(input);
       if (propertyValue > 0) {
-        return "<html><body><b>The property's assessment value is $" + assessmentValue(propertyValue) + "</b>";
+        return "<html><body><b>The property's assessment value is $" +
+            currency.format(assessmentValue(propertyValue)) + "</b>";
       }
       else {
         throw new IllegalArgumentException("Error! Property value cannot be negative or zero: " + input);
@@ -180,7 +193,7 @@ public class WardPropertyTax extends JFrame {
 
 
   private String calculatePropertyTax(final String input) throws IllegalArgumentException {
-    if (input == null) {
+    if (input.trim().isEmpty()) {
       throw new IllegalArgumentException("Error! No input provided.");
     }
     else if (!tryParseDouble(input)) {
@@ -190,7 +203,7 @@ public class WardPropertyTax extends JFrame {
       final double propertyValue = Double.parseDouble(input);
       if (propertyValue > 0) {
         final String assessValStr = calculateAssessmentValue(input);
-        final String propTaxStr = "<b>The property tax on that value is $" + propertyTax(propertyValue)+ "</b>";
+        final String propTaxStr = "<b>The property tax on that value is $" + currency.format(propertyTax(propertyValue)) + "</b>";
         return assessValStr + "<br>" + propTaxStr;
       }
       else {
