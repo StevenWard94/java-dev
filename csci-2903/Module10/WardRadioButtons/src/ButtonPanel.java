@@ -13,17 +13,15 @@ import java.awt.event.*;
 import javax.swing.*;
 
 /**
- * Specialized panel to display, and handle ActionEvents from, this program's radio
- * buttons.
+ * Specialized panel to display, and handle ActionEvents from, this program's radio buttons.
  *
- * A subclass of JPanel defining one of the panels to be used in this program's GUI.
- * Contains three (3) JRadioButton components as well as an inner class implementing
- * ActionListener, as its object member fields. This class also defines a "handler"
- * method to perform the proper behaviors upon creation of an ActionEvent by one of the
- * radio buttons.
+ * A subclass of JPanel defining one of the primary components to be used in this program's GUI.
+ * Contains three (3) JRadioButton components as well as an inner class implementing ActionListener,
+ * as its object member fields. This class also defines a "handler" method to perform the proper
+ * behaviors upon creation of an ActionEvent by one of the radio buttons.
  *
  * @see WardRadioButtons#MainWindow
- * @see ImagePanel
+ * @see ImageLabel
  * @see javax.swing.JPanel
  * @see javax.swing.JRadioButton
  * @see java.awt.event.ActionListener
@@ -36,6 +34,7 @@ public class ButtonPanel extends JPanel {
 
   private JRadioButton dogButton, bearButton, otherButton;
   private ButtonGroup radioButtonGroup = new ButtonGroup();
+  private ImageLabel associatedImageLabel;
 
   public ButtonPanel( ) {
     dogButton = new JRadioButton("DOG");
@@ -56,6 +55,12 @@ public class ButtonPanel extends JPanel {
     radioButtonGroup.add(otherButton);
   }
 
+  public void associateImageLabel(ImageLabel imageLabel) {
+    if (imageLabel != null) {
+      this.associatedImageLabel = imageLabel;
+    }
+  }
+
   private class RadioButtonListener implements ActionListener {
 
     @Override
@@ -65,6 +70,18 @@ public class ButtonPanel extends JPanel {
   }
 
   private void handleRadioButtonEvent(Object component) {
-    // TODO: WRITE HANDLER FOR RADIO BUTTON EVENTS
+    if (this.associatedImageLabel != null) {
+
+      if (component == dogButton) {
+        this.associatedImageLabel.updateDisplay(associatedImageLabel.DOG_IMAGE);
+      }
+      else if (component == bearButton) {
+        this.associatedImageLabel.updateDisplay(associatedImageLabel.BEAR_IMAGE);
+      }
+      else {
+        this.associatedImageLabel.updateDisplay(associatedImageLabel.OTHER_IMAGE);
+      }
+
+    }
   }
 }
