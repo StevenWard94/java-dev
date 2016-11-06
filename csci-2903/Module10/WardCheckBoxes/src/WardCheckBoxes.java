@@ -61,45 +61,63 @@ public class WardCheckBoxes extends JFrame {
   private JCheckBox blueCheckBox, orangeCheckBox;
   private ItemListener checkboxListener;
   private GridBagConstraints layoutConstraints;
-  private boolean[] checkboxStatus;
 
   private class ColorChangeListener implements ItemListener {
     @Override
     public void itemStateChanged(ItemEvent event) {
-      Object checkbox = event.getSource();
-      if (checkbox == WardCheckBoxes.this.blueCheckBox) {
-        WardCheckBoxes.this.checkboxStatus[0] = blueCheckBox.isSelected();
-      }
-      else {
-        WardCheckBoxes.this.checkboxStatus[1] = orangeCheckBox.isSelected();
-      }
+      final int blue = WardCheckBoxes.this.blueCheckBox.isSelected() ? 1 : 0;
+      final int orange = WardCheckBoxes.this.orangeCheckBox.isSelected() ? 2 : 0;
+      final int state = blue + orange;
 
-      boolean blueChecked = checkboxStatus[0], orangeChecked = checkboxStatus[1];
-      if (blueChecked && orangeChecked) {
-        WardCheckBoxes.this.checkboxPanel.setBackground(Color.BLUE);
-        WardCheckBoxes.this.checkboxPanel.setForeground(Color.ORANGE);
-        WardCheckBoxes.this.setTitle(WardCheckBoxes.BLUE_ORANGE_TITLE);
+      Color bg_Co;
+      Color fg_Co;
+      String title;
+      switch (blue + orange) {
+        case 1:
+          bg_Co = Color.BLUE;
+          fg_Co = Color.YELLOW;
+          title = WardCheckBoxes.BLUE_TITLE;
+          break;
+        case 2:
+          bg_Co = Color.ORANGE;
+          fg_Co = Color.WHITE;
+          title = WardCheckBoxes.ORANGE_TITLE;
+          break;
+        case 3:
+          bg_Co = Color.BLUE;
+          fg_Co = Color.ORANGE;
+          title = WardCheckBoxes.BLUE_ORANGE_TITLE;
+          break;
+        default:
+          bg_Co = Color.GRAY;
+          fg_Co = Color.BLACK;
+          title = WardCheckBoxes.DEFAULT_TITLE;
+          break;
       }
-      else if (blueChecked && !orangeChecked) {
-        WardCheckBoxes.this.checkboxPanel.setBackground(Color.BLUE);
-        WardCheckBoxes.this.checkboxPanel.setForeground(Color.YELLOW);
-        WardCheckBoxes.this.setTitle(WardCheckBoxes.BLUE_TITLE);
-      }
-      else if (!blueChecked && orangeChecked) {
-        WardCheckBoxes.this.checkboxPanel.setBackground(Color.ORANGE);
-        WardCheckBoxes.this.checkboxPanel.setForeground(Color.WHITE);
-        WardCheckBoxes.this.setTitle(WardCheckBoxes.ORANGE_TITLE);
-      }
-      else {
-        WardCheckBoxes.this.checkboxPanel.setBackground(Color.GRAY);
-        WardCheckBoxes.this.checkboxPanel.setForeground(Color.BLACK);
-        WardCheckBoxes.this.setTitle(WardCheckBoxes.DEFAULT_TITLE);
-      }
+      WardCheckBoxes.this.updateCheckBoxes(bg_Co, fg_Co);
+
+      WardCheckBoxes.this.checkboxPanel.setBackground(bg_Co);
+      WardCheckBoxes.this.checkboxPanel.setForeground(fg_Co);
+      WardCheckBoxes.this.setTitle(title);
+
       WardCheckBoxes.this.checkboxPanel.revalidate();
       WardCheckBoxes.this.checkboxPanel.repaint();
       WardCheckBoxes.this.revalidate();
       WardCheckBoxes.this.repaint();
     }
+  }
+
+
+  private void updateCheckBoxes(Color backgroundColor, Color foregroundColor) {
+    blueCheckBox.setBackground(backgroundColor);
+    blueCheckBox.setForeground(foregroundColor);
+    blueCheckBox.revalidate();
+    blueCheckBox.repaint();
+
+    orangeCheckBox.setBackground(backgroundColor);
+    orangeCheckBox.setForeground(foregroundColor);
+    orangeCheckBox.revalidate();
+    orangeCheckBox.repaint();
   }
 
 
@@ -127,21 +145,22 @@ public class WardCheckBoxes extends JFrame {
       }
     });
 
-    this.setLayout(new GridBagLayout());
-    this.checkboxPanel.setLayout(new GridBagLayout());
-    checkboxPanel.setPreferredSize(this.getSize());
+    this.checkboxPanel = new JPanel();
     this.checkboxListener = new ColorChangeListener();
-
     this.blueCheckBox = new JCheckBox("BLUE");
+    this.orangeCheckBox = new JCheckBox("ORANGE");
+
+    this.setLayout(new GridBagLayout());
+    checkboxPanel.setLayout(new GridBagLayout());
+    checkboxPanel.setPreferredSize(this.getSize());
+    layoutConstraints = new GridBagConstraints();
+
     blueCheckBox.setFont(blueCheckBox.getFont().deriveFont(Font.BOLD, 48.0f));
     blueCheckBox.addItemListener(checkboxListener);
 
-    this.orangeCheckBox = new JCheckBox("ORANGE");
-    orangeCheckBox.setFont(blueCheckBox.getFont());
+    orangeCheckBox.setFont(orangeCheckBox.getFont().deriveFont(Font.BOLD, 48.0f));
     orangeCheckBox.addItemListener(checkboxListener);
-    orangeCheckBox.setPreferredSize(blueCheckBox.getPreferredSize());
 
-    this.layoutConstraints = new GridBagConstraints();
     layoutConstraints.anchor = GridBagConstraints.CENTER;
     layoutConstraints.fill = GridBagConstraints.BOTH;
     layoutConstraints.ipadx = 2;
@@ -155,5 +174,6 @@ public class WardCheckBoxes extends JFrame {
     layoutConstraints.ipadx = 0;
     layoutConstraints.gridx = 0;
     this.add(checkboxPanel, layoutConstraints);
+
   }
 }
