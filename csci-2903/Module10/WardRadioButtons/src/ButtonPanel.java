@@ -69,7 +69,7 @@ public class ButtonPanel extends JPanel {
     }
   }
 
-  private void handleRadioButtonEvent(Object component) {
+  private boolean handleRadioButtonEvent(Object component) {
     if (this.associatedImageLabel != null) {
 
       if (component == dogButton) {
@@ -84,4 +84,5 @@ public class ButtonPanel extends JPanel {
 
     }
   }
+
 }

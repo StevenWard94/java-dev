@@ -35,8 +35,18 @@ public class ImageLabel extends JLabel {
 
   private static final long serialVersionUID = 1L;
 
-  private ImageIcon currentDisplay;
-  private JLabel imageLabel;
 
+  public ImageLabel( ) {
+
+    this.setHorizontalAlignment(ImageLabel.CENTER);
+    this.setVerticalAlignment(ImageLabel.TOP);
+  }
+
+
+  public void updateDisplay(final ImageIcon img) {
+    if (img != this.getIcon()) {
+      this.setIcon(img);
+    }
+  }
 
 }
