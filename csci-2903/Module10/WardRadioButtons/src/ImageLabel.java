@@ -8,8 +8,6 @@
  *
  */
 
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 
 /**
@@ -29,10 +27,9 @@ import javax.swing.*;
  * @see javax.swing.ImageIcon
  */
 public class ImageLabel extends JLabel {
-
-  public static final ImageIcon DOG_IMAGE = new ImageIcon(ImageLabel.class.getResource("/img/DogPicture.png"));
-  public static final ImageIcon BEAR_IMAGE = new ImageIcon(ImageLabel.class.getResource("/img/BearPicture.png"));
-  public static final ImageIcon OTHER_IMAGE = new ImageIcon(ImageLabel.class.getResource("/img/OwlPicture.png"));
+  public static final ImageIcon DOG_IMAGE = new ImageIcon(ImageLabel.class.getResource("DogPicture.png"));
+  public static final ImageIcon BEAR_IMAGE = new ImageIcon(ImageLabel.class.getResource("BearPicture.png"));
+  public static final ImageIcon OTHER_IMAGE = new ImageIcon(ImageLabel.class.getResource("OwlPicture.png"));
 
   private static final long serialVersionUID = 1L;
 
