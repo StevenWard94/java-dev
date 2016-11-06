@@ -55,7 +55,7 @@ public class ButtonPanel extends JPanel {
     radioButtonGroup.add(otherButton);
   }
 
-  public void associateImageLabel(ImageLabel imageLabel) {
+  public void addAssociatedImageLabel(ImageLabel imageLabel) {
     if (imageLabel != null) {
       this.associatedImageLabel = imageLabel;
     }
