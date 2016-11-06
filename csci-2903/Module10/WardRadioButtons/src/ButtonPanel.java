@@ -20,7 +20,8 @@ import javax.swing.*;
  * as its object member fields. This class also defines a "handler" method to perform the proper
  * behaviors upon creation of an ActionEvent by one of the radio buttons.
  *
- * @see WardRadioButtons#MainWindow
+ * @see WardRadioButtons#WardRadioButtons( )
+ * @see WardRadioButtons#main(String)
  * @see ImageLabel
  * @see javax.swing.JPanel
  * @see javax.swing.JRadioButton
@@ -69,17 +70,17 @@ public class ButtonPanel extends JPanel {
     }
   }
 
-  private boolean handleRadioButtonEvent(Object component) {
+  private void handleRadioButtonEvent(Object component) {
     if (this.associatedImageLabel != null) {
 
       if (component == dogButton) {
-        this.associatedImageLabel.updateDisplay(associatedImageLabel.DOG_IMAGE);
+        this.associatedImageLabel.updateDisplay(ImageLabel.DOG_IMAGE);
       }
       else if (component == bearButton) {
-        this.associatedImageLabel.updateDisplay(associatedImageLabel.BEAR_IMAGE);
+        this.associatedImageLabel.updateDisplay(ImageLabel.BEAR_IMAGE);
       }
       else {
-        this.associatedImageLabel.updateDisplay(associatedImageLabel.OTHER_IMAGE);
+        this.associatedImageLabel.updateDisplay(ImageLabel.OTHER_IMAGE);
       }
 
     }

@@ -21,8 +21,9 @@ import javax.swing.*;
  * contains a method for changing the displayed image, which is called from an associated instance
  * of the ButtonPanel class.
  *
- * @see WardRadioButtons#MainWindow
- * @see ButtonPanel#associateImageLabel(ImageLabel)
+ * @see WardRadioButtons#WardRadioButtons( )
+ * @see WardRadioButtons#main(String)
+ * @see ButtonPanel#addAssociatedImageLabel(ImageLabel)
  * @see ButtonPanel#handleRadioButtonEvent(Object)
  * @see javax.swing.JLabel
  * @see javax.swing.ImageIcon

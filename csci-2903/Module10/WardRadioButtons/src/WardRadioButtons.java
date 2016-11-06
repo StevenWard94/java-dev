@@ -44,11 +44,28 @@ public class WardRadioButtons extends JFrame {
   private ImageLabel imageLabel;
   private ButtonPanel buttonPanel;
 
+
+  public static void main(String[] args) {
+    WardRadioButtons mainWindow = new WardRadioButtons();
+    mainWindow.setVisible(true);
+  }
+
   public WardRadioButtons( ) {
 
     super(DEFAULT_TITLE);
 
-    this.setLayout(new GridLayout(2, 1));
+    this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+    this.addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowClosing(WindowEvent event) {
+        int confirmExit =
+            JOptionPane.showConfirmDialog(null, "Are you sure you want to leave?", "Exit?",
+                                          JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (confirmExit == JOptionPane.YES_OPTION) {
+          System.exit(0);
+        }
+      }
+    });
 
     this.imageLabel = new ImageLabel();
     this.imageLabel.addPropertyChangeListener("icon", new PropertyChangeListener() {
@@ -75,6 +92,7 @@ public class WardRadioButtons extends JFrame {
     this.buttonPanel = new ButtonPanel();
     this.buttonPanel.addAssociatedImageLabel(imageLabel);
 
+    this.setLayout(new GridLayout(2, 1));
     this.add(imageLabel);
     this.add(buttonPanel);
   }
