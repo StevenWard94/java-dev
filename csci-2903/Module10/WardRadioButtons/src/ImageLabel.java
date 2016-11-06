@@ -22,7 +22,7 @@ import javax.swing.*;
  * of the ButtonPanel class.
  *
  * @see WardRadioButtons#WardRadioButtons( )
- * @see WardRadioButtons#main(String)
+ * @see WardRadioButtons#main(String[])
  * @see ButtonPanel#addAssociatedImageLabel(ImageLabel)
  * @see ButtonPanel#handleRadioButtonEvent(Object)
  * @see javax.swing.JLabel

@@ -34,6 +34,9 @@ import javax.swing.*;
  */
 public class WardRadioButtons extends JFrame {
 
+  public static final int MINIMUM_WINDOW_WIDTH = 700;
+  public static final int MINIMUM_WINDOW_HEIGHT = 900;
+
   public static final String DEFAULT_TITLE = "Just Radio Buttons";
   public static final String DOG_TITLE = "DOG | Radio Buttons";
   public static final String BEAR_TITLE = "BEAR | Radio Buttons";
@@ -50,9 +53,11 @@ public class WardRadioButtons extends JFrame {
     mainWindow.setVisible(true);
   }
 
+
   public WardRadioButtons( ) {
 
     super(DEFAULT_TITLE);
+    this.setMinimumSize(new Dimension(MINIMUM_WINDOW_WIDTH, MINIMUM_WINDOW_HEIGHT));
 
     this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     this.addWindowListener(new WindowAdapter() {

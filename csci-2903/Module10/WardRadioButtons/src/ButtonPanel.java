@@ -21,7 +21,7 @@ import javax.swing.*;
  * behaviors upon creation of an ActionEvent by one of the radio buttons.
  *
  * @see WardRadioButtons#WardRadioButtons( )
- * @see WardRadioButtons#main(String)
+ * @see WardRadioButtons#main(String[])
  * @see ImageLabel
  * @see javax.swing.JPanel
  * @see javax.swing.JRadioButton
@@ -39,8 +39,11 @@ public class ButtonPanel extends JPanel {
 
   public ButtonPanel( ) {
     dogButton = new JRadioButton("DOG");
+    dogButton.setFont(dogButton.getFont().deriveFont(36.0f));
     bearButton = new JRadioButton("BEAR");
+    bearButton.setFont(bearButton.getFont().deriveFont(36.0f));
     otherButton = new JRadioButton("OTHER");
+    otherButton.setFont(otherButton.getFont().deriveFont(36.0f));
 
     this.setLayout(new FlowLayout());
     this.add(dogButton);
