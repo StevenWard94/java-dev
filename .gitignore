@@ -13,6 +13,10 @@ hs_err_pid*
 # no 'class' files
 *.class
 
-
 # eclipse '.metadata' directories
 **/.metadata/
+
+# other filetypes that don't need to be under version control
+*.doc
+*.pdf
+*.exe
