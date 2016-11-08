@@ -28,6 +28,9 @@ public class MenuWindow extends JFrame
     private JRadioButtonMenuItem blueItem;   // Makes text blue
     private JCheckBoxMenuItem visibleItem;   // Makes text black
 
+    // Compiler generates a warning if this variable is undefined...
+    private static final long serialVersionUID = 0L;
+
     /**
      * Constructor
      */
@@ -101,5 +104,113 @@ public class MenuWindow extends JFrame
 
         // Add the "Exit" menu item to the "File" menu.
         fileMenu.add(exitItem);
+    }
+
+    /**
+     * The 'buildTextMenu' method builds the "Text" menu
+     * and returns a reference to its JMenu object.
+     */
+
+    private void buildTextMenu( )
+    {
+        // Create the radio button menu items to change
+        // the color of the text. Add an action listener
+        // to each one.
+        blackItem = new JRadioButtonMenuItem("Black", true);
+        blackItem.setMnemonic(KeyEvent.VK_B);
+        blackItem.addActionListener(new ColorListener());
+
+        redItem = new JRadioButtonMenuItem("Red");
+        redItem.setMnemonic(KeyEvent.VK_R);
+        redItem.addActionListener(new ColorListener());
+
+        blueItem = new JRadioButtonMenuItem("Blue");
+        blueItem.setMnemonic(KeyEvent.VK_U);
+        blueItem.addActionListener(new ColorListener());
+
+        // Create a button group for the radio button items.
+        ButtonGroup group = new ButtonGroup();
+
+        group.add(blackItem);
+        group.add(redItem);
+        group.add(blueItem);
+
+        // Create a check box menu item to make the text
+        // visible or invisible.
+        visibleItem = new JCheckBoxMenuItem("Visible", true);
+        visibleItem.setMnemonic(KeyEvent.VK_V);
+        visibleItem.addActionListener(new VisibleListener());
+
+        // Create a JMenu object for the "Text" menu.
+        textMenu = new JMenu("Text");
+        textMenu.setMnemonic(KeyEvent.VK_T);
+
+        // Add the menu items to the "Text" menu.
+        textMenu.add(blackItem);
+        textMenu.add(redItem);
+        textMenu.add(blueItem);
+        textMenu.addSeparator();    // Add a separator bar.
+        textMenu.add(visibleItem);
+    }
+
+    /**
+     * Private inner class that handles the event that
+     * is generated when the user selects "Exit" from
+     * the "File" menu.
+     */
+
+    private class ExitListener implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            System.exit(0);
+        }
+    }
+
+    /**
+     * Private inner class that handles the event that
+     * is generated when the user selects a color from
+     * the "Text" menu.
+     */
+
+    private class ColorListener implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            if (blackItem.isSelected())
+                messageLabel.setForeground(Color.BLACK);
+            else if (redItem.isSelected())
+                messageLabel.setForeground(Color.RED);
+            else if (blueItem.isSelected())
+                messageLabel.setForeground(Color.BLUE);
+        }
+    }
+
+    /**
+     * Private inner class that handles the event that
+     * is generated when the user selects "Visible" from
+     * the "Text" menu.
+     */
+
+    private class VisibleListener implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            if (visibleItem.isSelected())
+                messageLabel.setVisible(true);
+            else
+                messageLabel.setVisible(false);
+        }
+    }
+
+    /**
+     * The 'main' method creates an instance of the
+     * MenuWindow class, which causes it to display
+     * its window.
+     */
+
+    public static void main(String[] args)
+    {
+        MenuWindow mw = new MenuWindow();
     }
 }
