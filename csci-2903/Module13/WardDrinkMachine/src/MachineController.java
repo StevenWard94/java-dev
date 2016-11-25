@@ -28,12 +28,7 @@ public class MachineController {
     private final double value;
   }
 
-  enum Drinks {
-    COLA(0), LEMON_LIME(1), WATER(2);
-    Drinks(int i) { this.i = i; }
-    public int toInt( ) { return this.i; }
-    private final int i;
-  }
+  enum Drink { COLA, LEMON_LIME, WATER };
 
   public boolean canPurchase( ) { return this.canPurchase; }
 
@@ -53,6 +48,17 @@ public class MachineController {
       this.paid.add(coin);
       this.canPurchase = this.getAmountPaid() >= DRINK_PRICE ? true : canPurchase;
       return true;
+    }
+  }
+
+  public boolean isSoldOut(Drink drink) {
+    switch (drink) {
+      case COLA:
+        return inventory[0] > 0;
+      case LEMON_LIME:
+        return inventory[1] > 0;
+      case WATER:
+        return inventory[2] > 0;
     }
   }
 
