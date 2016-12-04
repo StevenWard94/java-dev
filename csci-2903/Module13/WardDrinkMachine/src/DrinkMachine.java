@@ -50,4 +50,13 @@ public class DrinkMachine implements VendingMachine {
     }
     return change;
   }
+
+  @Override public Money receiveMoney(Money m) {
+    if (sufficientFunds()) {
+      this.moneyInserted.push(m);
+      return null;
+    }
+
+    return m;
+  }
 }
