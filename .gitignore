@@ -20,6 +20,10 @@ hs_err_pid*
 *.doc
 *.pdf
 *.exe
+*.taghl
+**/tags
+
+**/.local
 
 # broken files and the like
 **/.exclude/

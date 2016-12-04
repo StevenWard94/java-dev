@@ -8,13 +8,15 @@
  *
  */
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 /**
  * TODO: CLASS-LEVEL DOCUMENTATION FOR VENDINGMACHINE INTERFACE!
  *       JAVADOC TAGS
  */
 
-public interface VendingMachine<ProductType extends Enum<ProductType>> {
+public interface VendingMachine {
 
   enum Money {
     PENNY       (0.01),
@@ -25,11 +27,33 @@ public interface VendingMachine<ProductType extends Enum<ProductType>> {
     ONE_DOLLAR  (1.00),
     FIVE_DOLLAR (5.00);
 
-    public final value;
+    public final double value;
+
     Money(double val) { this.value = val; }
 
-    public static double totalValue(List<Money> money) {
-
+    public static double totalValue(Deque<Money> money) {
+      double total_value = 0.0;
+      for (Money m : money) {
+        total_value += m.value;
+      }
+      return total_value;
     }
   }
+
+
+  Money receiveMoney(Money m);
+
+  <ItemType extends Enum<ItemType>> boolean canDispense(ItemType item);
+
+  <ItemType extends Enum<ItemType>> ItemType dispense(ItemType item);
+
+  Deque<Money> giveChange( );
+
+  double moneyRequired( );
+
+  double moneyInserted( );
+
+  boolean sufficientFunds( );
+
+
 }
