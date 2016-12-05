@@ -49,10 +49,10 @@ public class Inventory<ItemT extends Enum<ItemT>> {
     int i = 0;
     for (ItemT key : itemType.getEnumConstants()) {
       try {
-        inventory.put(key, new Integer(initStock[i]));
+        inventory.put(key, Integer.valueOf(initStock[i]));
       }
       catch (ArrayIndexOutOfBoundsException index_except) {
-        inventory.put(key, new Integer(0));
+        inventory.put(key, Integer.valueOf(0));
       }
       i++;
     }

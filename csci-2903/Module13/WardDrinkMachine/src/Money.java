@@ -11,11 +11,11 @@
 import java.util.Deque;
 
 public enum Money {
-  PENNY   (0.01),
-  NICKEL  (0.05),
-  DIME    (0.10),
+  DOLLAR  (1.00),
   QUARTER (0.25),
-  DOLLAR  (1.00);
+  DIME    (0.10),
+  NICKEL  (0.05),
+  PENNY   (0.01);
 
   public final double value;
 
