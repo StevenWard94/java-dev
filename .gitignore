@@ -1,3 +1,4 @@
+# This file does not contain all ignored patterns, see: ~/.gitignore_global
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -22,8 +23,6 @@ hs_err_pid*
 *.exe
 *.taghl
 **/tags
-
-**/.local
 
 # broken files and the like
 **/.exclude/
