@@ -27,6 +27,8 @@ public class MachinePanel extends JPanel {
   private JButton waterButton;
   private JTextField machineReadout;
 
+  private List<Component> childComponents;
+
 
   private List<Component> initFillerPanels( ) {
     List<Component> fillerPanels = new ArrayList<Component>();
@@ -52,8 +54,8 @@ public class MachinePanel extends JPanel {
     super();
     this.setPreferredSize(new Dimension(750,750));
 
-    List<Component> componentPanels = initFillerPanels();
-    componentPanels.add(1, initMachineReadout());
+    this.childComponents = initFillerPanels();
+    childComponents.add(1, initMachineReadout());
 
   }
 }
